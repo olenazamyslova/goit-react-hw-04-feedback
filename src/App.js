@@ -19,9 +19,7 @@ const App = () => {
     return valuesArr.reduce((acc, val) => acc + val);
   };
 
-  const countZero = () => {
-    return countTotalFeedback() === 0;
-  };
+  const PositiveFeedback = countTotalFeedback() > 0;
 
   const countPositiveFeedbackPercentage = () => {
     return Math.trunc((feedback.good / countTotalFeedback()) * 100);
@@ -33,14 +31,14 @@ const App = () => {
     <div className="App">
       <section>
         <FeedbackOptions options={btnNames} onLeaveFeedback={onLeaveFeedback} />
-        {countZero() ? (
-          <Notification message="No feedback given" />
-        ) : (
+        {PositiveFeedback ? (
           <Statistics
             stat={feedback}
             total={countTotalFeedback()}
             positivePercentage={countPositiveFeedbackPercentage()}
           />
+        ) : (
+          <Notification message="No feedback given" />
         )}
       </section>
     </div>
